@@ -1,0 +1,68 @@
+{
+  "name": "@soufantech/node-ts-lib-boilerplate",
+  "version": "0.0.0",
+  "description": "SouFan's TypeScript boilerplate for Node.js libraries",
+  "keywords": [],
+  "author": {
+    "name": "SouFan Team",
+    "email": "no-reply@soufan.com.br",
+    "url": "https://github.com/soufantech"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soufantech/node-ts-lib-boilerplate.git"
+  },
+  "homepage": "https://github.com/soufantech/node-ts-lib-boilerplate#readme",
+  "bugs": {
+    "url": "https://github.com/soufantech/node-ts-lib-boilerplate/issues"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "publishConfig": {
+    "access:": "restricted"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "watch": "ts-node-dev src/index.ts",
+    "test": "jest --pass-with-no-tests",
+    "lint": "tsc --noEmit && eslint ./src/**/*.{ts,tsx}",
+    "clear": "rm -rf dist",
+    "prebuild": "npm run clear",
+    "build": "tsc -p ./tsconfig.build.json",
+    "prepublishOnly": "npm run build && npm run test --silent"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^6.0.0",
+    "jest": "^26.1.0",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.2.4",
+    "typescript-eslint": "^0.0.1-alpha.0"
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "tabWidth": 2
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
