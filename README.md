@@ -6,7 +6,7 @@
 
 <div align="center">
   <h1>@soufantech/pulumi-naming</h1>
-  <p>Library to simplify resource naming in Pulumi</p>
+  <p>Library to simplify and efforces resource naming in Pulumi</p>
 </div>
 
 <br />
@@ -17,9 +17,15 @@
 
 </div>
 
-## Intro
+## How to install
 
-This efforce name pattern in Pulumi components. See usage example:
+Execute command below:
+
+```shell
+yarn add @soufantech/pulumi-naming
+```
+
+Recommended usage is (see more details in [next section](https://github.com/soufantech/pulumi-naming#from-config-namingfromconfig)):
 
 ```typescript
 import * as aws from '@pulumi/aws';
@@ -82,6 +88,16 @@ config:
   aws:region: us-east-1
   naming:radical: main
   naming:suffix: dev
+```
+
+_*Default export is an alternative to this method_
+
+```typescript
+import * as aws from '@pulumi/aws';
+import n from '@soufantech/pulumi-naming';
+
+// Resulting name is: main-dev
+const bucket = new aws.s3.Bucket(n());
 ```
 
 ## Naming structure
