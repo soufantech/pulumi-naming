@@ -1,6 +1,6 @@
 {
   "name": "@soufantech/pulumi-naming",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Library to simplify resource naming in Pulumi",
   "keywords": [
     "iac",
