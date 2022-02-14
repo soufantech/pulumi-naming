@@ -5,8 +5,8 @@
 <br />
 
 <div align="center">
-  <h1>@soufantech/node-ts-lib-boilerplate</h1>
-  <p>SouFan's TypeScript boilerplate for Node.js libraries</p>
+  <h1>@soufantech/pulumi-naming</h1>
+  <p>Library to simplify resource naming in Pulumi</p>
 </div>
 
 <br />
@@ -17,53 +17,98 @@
 
 </div>
 
-## Setup
+## Intro
 
-1. Make a shallow clone of this project in the desired folder, renaming it (replace `<MY_LIB_NAME>` in any of the examples below for your project's name):
-  - Using SSH: `git clone --depth 1 git@github.com:soufantech/node-ts-lib-boilerplate.git <MY_LIB_NAME>`.
-  - Using HTTPS: `git clone --depth 1 https://github.com/soufantech/node-ts-lib-boilerplate.git <MY_LIB_NAME>`.
-2. Step into the recently cloned project and erase the .git directory completely.
-3. Make the required and optional overrides as described further below.
-4. Create a new repository with `git init` and commit your files.
+This efforce name pattern in Pulumi components. See usage example:
 
-### **Required** overrides:
+```typescript
+import * as aws from '@pulumi/aws';
+import n from '@soufantech/pulumi-naming';
 
-You **must**...
+// Resulting name is: main-dev
+const bucket = new aws.s3.Bucket(n());
+```
 
-1. update `author`, `repository`, `homepage`, `bugs`, `name` and `version` fields in `package.json`.
-2. delete or replace demo files: `rm src/index.ts src/simple-math.ts src/__tests__/simple-math.test.ts`.
-3. rewrite this `README.md` (after reading it);
+## How to use
 
-### **Optional** overrides:
+### Basic: naming
 
-You might want to...
+This is the basic component.
 
-- set the `license` field (default is `UNLICENSED`). You may also include a `LICENSE` file on the root folder.
-- set the `publishConfig.access`to `public` if your package is not meant to be published as a private package.
-- set the `private` field to `false` in order to publish the package.
-- set the `repository` field.
-- remove the `test` command along with the `jest` dependency if your project is not meant to include automated tests.
-- run `yarn upgrade --latest` to generate a fresh `yarn.lock` and upgrade all dependencies listed in your `package.json`.
-- exclude the `.npmrc` file or modify it if you're not using a SouFan NPM registry token (typically `SOUFAN_NPM_TOKEN`)
+```typescript
+// index.ts
+import * as aws from '@pulumi/aws';
+import { naming } from '@soufantech/pulumi-naming';
 
-In addition to `package.json`, you might also want to check...
+const bucketResourceName = naming(
+    {
+        radical: 'main',
+        suffix: 'dev',
+    },
+    'icon-bucket'
+);
 
-- the `.npmignore` file for the files that will be ignored on publishing.
-- the test runner options on the `jest.config.js` file.
-- the linter rules in the `eslintrc.yml` file.
-- the general editor configuration on the `.editorconfig` file.
+const bucket = new aws.s3.Bucket(bucketName); // main-icon-bucket-dev
+```
+
+### Factory: createNaming
+
+```typescript
+// index.ts
+import * as aws from '@pulumi/aws';
+import { createNaming } from '@soufantech/pulumi-naming';
+
+const naming = createNaming({
+    radical: 'main',
+    suffix: 'dev',
+});
+
+const bucket = new aws.s3.Bucket(naming('icon-bucket')); // main-icon-bucket-dev
+```
+
+### From config: namingFromConfig
+
+```typescript
+// index.ts
+import * as aws from '@pulumi/aws';
+import { namingFromConfig as naming } from '@soufantech/pulumi-naming';
+
+const bucket = new aws.s3.Bucket(naming('icon-bucket')); // main-icon-bucket-dev
+```
+
+```yaml
+# Pulumi.dev.yaml
+config:
+  aws:region: us-east-1
+  naming:radical: main
+  naming:suffix: dev
+```
+
+## Naming structure
+
+`<radical>-<resource-name>-<suffix>`
+
+- `radical`: project name is a common usage
+- `resource-name`: required if more than onne resource of the same type is created
+- `suffix`: environment name is a common usage
+
+## Options
+
+- `radical`: define radical part of name (default: `pulumi.getProject()`)
+- `suffix`: define suffix part of name (default: `undefined`)
+- `defaultSuffix`: use `pulumi.getStack()` in suffix part of name (default: `false`)
 
 ---
 
 <div align="center">
-  <sub>Built with ❤︎ by <a href="https://soufan.com.br">SouFan</a>
+  <sub>Built with ❤︎ by <a href="https://soufan.com.br">SouFan</a></sub>
 </div>
 
 [typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
 [typescript-url]: "typescript"
 
 [npm-image]: https://img.shields.io/npm/v/@soufantech/node-ts-lib-boilerplate.svg?style=for-the-badge&logo=npm
-[npm-url]: https://npmjs.org/package/@soufantech/node-ts-lib-boilerplate "npm"
+[npm-url]: https://npmjs.org/package/@soufantech/pulumi-naming "npm"
 
 [jest-image]: https://img.shields.io/badge/tested_with-jest-99424f.svg?style=for-the-badge&logo=jest
 [jest-url]: https://github.com/facebook/jest "jest"
