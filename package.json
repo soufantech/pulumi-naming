@@ -1,6 +1,6 @@
 {
   "name": "@soufantech/pulumi-naming",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Library to simplify resource naming in Pulumi",
   "keywords": [
     "iac",
@@ -21,6 +21,9 @@
     "url": "https://github.com/soufantech/pulumi-naming/issues"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access:": "public"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
