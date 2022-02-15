@@ -105,7 +105,7 @@ const bucket = new aws.s3.Bucket(n());
 `<radical>-<resource-name>-<suffix>`
 
 - `radical`: project name is a common usage
-- `resource-name`: required if more than onne resource of the same type is created
+- `resource-name`: required if more than one resource of the same type is created
 - `suffix`: environment name is a common usage
 
 ## Options

@@ -19,15 +19,12 @@ interface NamingFunction {
     (resourceName?: string): string;
 }
 
-function getConfigs(): NamingArgs {
-    const config = new pulumi.Config('naming');
-
-    return {
-        radical: config.get('radical'),
-        suffix: config.get('suffix'),
-        defaultSuffix: config.getBoolean('defaultSuffix'),
-    };
-}
+const config = new pulumi.Config('naming');
+const options = {
+    radical: config.get('radical'),
+    suffix: config.get('suffix'),
+    defaultSuffix: config.getBoolean('defaultSuffix'),
+};
 
 function makeBaseName(args: NamingArgs): BaseNameArgs {
     const radical = args.radical || pulumi.getProject();
@@ -51,9 +48,7 @@ export function naming(args: NamingArgs, resourceName?: string): string {
 }
 
 export function namingFromConfig(resourceName?: string): string {
-    const args = getConfigs();
-
-    return naming(args, resourceName);
+    return naming(options, resourceName);
 }
 
 export function createNaming(args: NamingArgs): NamingFunction {
