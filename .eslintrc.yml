@@ -33,7 +33,7 @@ rules:
       trailingComma: es5
       semi: true
       tabWidth: 4
-      printWidth: 120
+      printWidth: 100
   import-helpers/order-imports:
     - warn
     - newlinesBetween: 'always'
