@@ -123,7 +123,7 @@ const bucket = new aws.s3.Bucket(n());
 [typescript-image]: https://img.shields.io/badge/Typescript-294E80.svg?style=for-the-badge&logo=typescript
 [typescript-url]: "typescript"
 
-[npm-image]: https://img.shields.io/npm/v/@soufantech/node-ts-lib-boilerplate.svg?style=for-the-badge&logo=npm
+[npm-image]: https://img.shields.io/npm/v/@soufantech/pulumi-naming.svg?style=for-the-badge&logo=npm
 [npm-url]: https://npmjs.org/package/@soufantech/pulumi-naming "npm"
 
 [jest-image]: https://img.shields.io/badge/tested_with-jest-99424f.svg?style=for-the-badge&logo=jest
